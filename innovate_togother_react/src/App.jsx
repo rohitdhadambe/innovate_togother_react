@@ -1,44 +1,24 @@
-import { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
-import Content from './components/Content';
-import MidSection from './components/MidSection';
+import Home from './components/Home'; // Home component
+import Contribution from './components/Contribution'; // Contribution component
 import Footer from './components/Footer';
-import './App.css';
-import {  BrowserRouter  } from 'react-router-dom';
-
+import './index.css';
 
 function App() {
-  useEffect(() => {
-    const aboutLink = document.getElementById('about-link');
-    aboutLink.addEventListener('click', function(event) {
-      event.preventDefault(); // Prevent default link behavior
-      const aboutSection = document.getElementById('about-section');
-      aboutSection.scrollIntoView({ behavior: 'smooth' });
-    });
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        const sectionId = this.getAttribute('href').substring(1);
-        const section = document.getElementById(sectionId);
-
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-  }, []);
-
   return (
     <div className="App">
-      
-      <BrowserRouter>
-      <Header />
-      <Content />
-      < MidSection />
-      < Footer />
-      </BrowserRouter>
+      <Router>
+        <Header />
+        <Routes>
+          {/* Route for the Home component */}
+          <Route path="/" element={<Home />} />
+          
+          {/* Route for the Contribution component */}
+          <Route path="/contribution" element={<Contribution />} />
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }
